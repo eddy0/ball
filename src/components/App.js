@@ -1,12 +1,24 @@
 import React, {Component, Fragment} from 'react'
 import '../App.css'
 import  {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import Home from "./Home";
 import Player from "./Player";
 import Teams from "./Teams";
 import TeamPage from "./TeamPage";
 import Navbar from "./Navbar";
 import Articles from "./Articles";
+
+import DynamicImport from './DynamicImport'
+import Loading from "./Loading";
+
+const Home = (props) => (
+    <DynamicImport load={() => import('./Home')}>
+        {(Component) => Component === null
+            ? <Loading text='loading'/>
+            : <Component {...props}/>
+        }
+    </DynamicImport>
+
+)
 
 class App extends Component {
   render() {

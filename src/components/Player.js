@@ -4,6 +4,7 @@ import slug from 'slug'
 import {getPlayers} from "../utils/api";
 import {parse} from 'query-string'
 import Sidebar from "./Sidebar";
+import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
 class Player extends React.Component {
     state = {
@@ -50,6 +51,9 @@ class Player extends React.Component {
                     }
                     const {name, position, teamId, number, avatar, apg, ppg, rpg, spg,} = this.state.players.find((player) => slug(player.name) === match.params.playerId )
                     return (
+                        <TransitionGroup className='panel'>
+                            <CSSTransition key={this.props.location.key} timeout={250} classNames='fade'>
+
                         <div className="panel text-center">
                             <img src={`${avatar}`} alt="" className="avatar"/>
                             <h1 className="medium-header">{name}</h1>
@@ -97,6 +101,9 @@ class Player extends React.Component {
                                 </ul>
                             </div>
                         </div>
+
+                            </CSSTransition>
+                        </TransitionGroup>
                     )
                 }}/>
 
